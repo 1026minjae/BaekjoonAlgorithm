@@ -1,0 +1,6 @@
+fn = int(input())
+sn = int(input())
+print(fn*(sn%10))
+print(fn*((sn//10)%10))
+print(fn*(sn//100))
+print(fn*sn)

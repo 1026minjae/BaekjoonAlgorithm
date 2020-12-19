@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//failed code
+
 int main() {
     int ANS[1000];
     int T, N, K, fro, hind, goal;
     int i,j;
     int *D;
+    short **ord;
     int *ans;
 
     scanf("%d", &T);

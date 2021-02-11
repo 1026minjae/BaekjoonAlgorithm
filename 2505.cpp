@@ -29,6 +29,14 @@ int main() {
         }
     }
 
+    if(flag) { // token end
+        tokens.push_back(pair<int,int>(temp,i));
+    }
+
+    for(i=0;i<tokens.size();++i) {
+        printf("token #%d : [%d, %d]\n",i+1,tokens[i].first,tokens[i].second);
+    }
+
     switch(tokens.size()) {
         case 0:
             printf("1 1\n2 2");
@@ -41,14 +49,32 @@ int main() {
                 printf("%d %d\n%d %d",tokens[0].first,tokens[0].second,tokens[0].first,tokens[1].second);
             else if(nums[tokens[1].first-1] < nums[tokens[1].second-1]) //ex 1 [5 4] [2 3] 6
                 printf("%d %d\n%d %d",tokens[1].first,tokens[1].second,tokens[0].first,tokens[1].second);
-            else if(nums[tokens[0].second-1] - nums[tokens[1].first-1] == 2) //ex 1 2 [5] 4 [3] 6 or 1 [6 5] 4 [3 2]
-                printf("1 1\n%d %d",tokens[0].first,tokens[1].second);
+            else if(nums[tokens[0].second-1] - nums[tokens[1].first-1] == tokens[1].first - tokens[0].second) //ex 1 [6] 3 4 5 [2] or 1 [6 5] 4 [3 2]
+                printf("%d %d\n%d %d",tokens[0].second+1,tokens[1].first-1,tokens[0].first,tokens[1].second);
             else //ex [2 1] 3 4 [6 5]
                 printf("%d %d\n%d %d",tokens[0].first,tokens[0].second,tokens[1].first,tokens[1].second);
             break;
         case 3:
+            if(nums[tokens[1].first-1] < nums[tokens[1].second-1]) //ex 1 [6 5] [3 4] [2]
+                printf("%d %d\n%d %d",tokens[1].first,tokens[1].second,tokens[0].first,tokens[2].second);
+            else if(nums[tokens[0].first-1] > nums[tokens[1].first-1]) //ex 1 [5] [2] 4 [3] 6 or [5 6] [1] 4 [3 2]
+                printf("%d %d\n%d %d",tokens[0].first,tokens[1].second,tokens[0].first+tokens[1].second-tokens[0].second,tokens[2].second);
+            else //ex 1 [5 4] [6] [2 3]
+                printf("%d %d\n%d %d",tokens[1].first,tokens[2].second,tokens[0].first,tokens[1].first+tokens[2].second-tokens[1].second);
             break;
         case 4:
+            if(tokens[0].second - tokens[1].first == 2) //ex [5 4] 3 [2] [6] [1]
+                printf("%d %d\n%d %d",tokens[2].first,tokens[3].second,tokens[0].first,tokens[2].first+tokens[3].second-tokens[2].second);
+            else if(tokens[1].second - tokens[2].first == 2) {
+                if(tokens[1].second-tokens[1].first+1 > tokens[2].second-tokens[2].first+1) //ex [2] [6 5] 4 [3] [1]
+                    printf("%d %d\n%d %d",tokens[1].first,tokens[3].second,tokens[0].first,tokens[1].first+tokens[3].second-tokens[3].first);
+                else //ex [6] [4] 3 [2 1] [5]
+                    printf("%d %d\n%d %d",tokens[0].first,tokens[2].second,tokens[0].first,tokens[2].second);
+            }
+            else //ex [6] [1] [5] 4 [3 2]
+                printf("%d %d\n%d %d",tokens[1].first,tokens[1].second,tokens[0].first,tokens[2].second);
+            break;
+        case 5:
             break;
     }
     

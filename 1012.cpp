@@ -1,17 +1,68 @@
 #include <cstdio>
+#include <vector>
 
-int bat[50][50] = {0, };
-int visited[50][50] = {0, };
+using namespace std;
 
-/*
-배추 위치를 입력받은 후,
-방문되지 않은 위치에 대하여 배추가 존재하는지 본다.
-그렇다면 새로운 '배추 집합'이라고 할 수 있다.
-왜냐하면 배추를 찾은 뒤 그 배추의 사방에 대하여 다시 배추를 재귀적으로 찾기 때문이다.
-아무튼 이걸 모든 위치에 대해 하면 검색 끝.
-*/
+int bat[50][50];
+bool visited[50][50];
+int T, M, N, K;
+
+void setworm(int x, int y) {
+    visited[x][y] = true;
+    if(x-1 >= 0)
+        if(!visited[x-1][y])
+            if(bat[x-1][y] == 1)
+                setworm(x-1,y);
+    if(x+1 < M)
+        if(!visited[x+1][y])
+            if(bat[x+1][y] == 1)
+                setworm(x+1,y);
+    if(y-1 >= 0)
+        if(!visited[x][y-1])
+            if(bat[x][y-1] == 1)
+                setworm(x,y-1);
+    if(y+1 < N)
+        if(!visited[x][y+1])
+            if(bat[x][y+1] == 1)
+                setworm(x,y+1);
+    return;
+}
 
 int main() {
-    
+    int X, Y, t, i, j, cnt;
+    vector<int> answers;
+
+    scanf("%d",&T);
+
+    for(t=0;t<T;++t) {
+        scanf("%d %d %d",&M,&N,&K);
+        for(i=0;i<M;++i) {
+            for(j=0;j<N;++j) {
+                bat[i][j] = 0;
+                visited[i][j] = false;
+            }
+        }
+        for(i=0;i<K;++i) {
+            scanf("%d %d",&X,&Y);
+            bat[X][Y] = 1;
+        }
+        cnt = 0;
+
+        for(i=0;i<M;++i) {
+            for(j=0;j<N;++j) {
+                if(bat[i][j] == 1) {
+                    if(!visited[i][j]) {
+                        setworm(i, j);
+                        ++cnt;
+                    }
+                }
+            }
+        }
+        answers.push_back(cnt);
+    }
+
+    for(t=0;t<T;++t)
+        printf("%d\n",answers[t]);
+
     return 0;
 }

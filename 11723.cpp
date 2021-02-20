@@ -15,9 +15,11 @@ int readnum(int index) {
 
 int main() {
     int M, i, x;
-    vector<int> answers;
+    vector<char> answers;
 
     scanf("%d",&M);
+    answers.reserve(M);
+
     for(i=0;i<M;++i) {
         fflush(stdin);
         fgets(oper,12,stdin);

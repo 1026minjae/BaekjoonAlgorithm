@@ -1,7 +1,7 @@
 #include <cstdio>
 
 int main() {
-    unsigned int X, Y, Z, cnt;
+    unsigned int X, Y, Z, low, mid, high, temp;
 
     scanf("%d %d",&X,&Y);
     if(X == Y) {
@@ -9,8 +9,20 @@ int main() {
     }
     else {
         Z = 100 * Y / X;
-        for(cnt = 1; 100*(Y+cnt)/(X+cnt) != Z+1; ++cnt);
-        printf("%d", cnt);
+        low = 1;
+        high = X;
+        while(low<=high) {
+            mid = (low + high) / 2;
+            
+            if(100 * (Y+mid) / (X+mid) >= Z + 1) {
+                high = mid - 1;
+                temp = mid;
+            }
+            else {
+                low = mid + 1;
+            }
+        }
+        printf("%d", temp);
     }
 
     return 0;

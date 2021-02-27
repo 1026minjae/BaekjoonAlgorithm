@@ -6,7 +6,7 @@ using namespace std;
 int main() {
     int T, N, i, j, start = 5;
     long long pn[100] = {1,1,1,2,2,};
-    vector<int> answers;
+    vector<long long> answers;
 
     scanf("%d",&T);
 
@@ -20,8 +20,9 @@ int main() {
         answers.push_back(pn[N-1]);
     }
     
-    for(j=0;j<T;++j)
+    for(j=0;j<T;++j) {
         printf("%lld\n",answers[j]);
+    }
 
     return 0;
 }

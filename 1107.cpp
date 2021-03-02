@@ -23,7 +23,7 @@ int cnt_digit(int num) { // 숫자 몇개로 이루어지는지 세는 함수
 int least_cnt(int num) {
     int min_cnt = (num >= 100) ? (num - 100) : (100 - num); //100부터 갔을 때 몇번 +/-하면 갈 수 있는지
     int temp;
-    for(temp = num; temp <= 500000; ++temp) {
+    for(temp = num;; ++temp) {
         if(possible_num(temp)) {
             if(temp - num + cnt_digit(temp) < min_cnt)
                 min_cnt = temp - num + cnt_digit(temp);
